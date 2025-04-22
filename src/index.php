@@ -2,9 +2,10 @@
     include "./partials/header.php";
     include "./partials/nav.php";
     include "./partials/hero.php";
-
+    
     $db = new Database();
     $db->getConnect();
+    var_dump($db) 
 
 ?>
     <!-- Main Content -->
