@@ -7,7 +7,7 @@ session_start();
 
     define("APP_NAME", "SYSTEM PDO SYSTEM");
 
-    define("PROJECT_DIR","php_cms_app");
+    define("PROJECT_DIR","php-cms-app");
     
 
 ?>
