@@ -1,16 +1,21 @@
 <?php 
     // Base Url 
-    function base_url($path) {
+    function base_url($path, $project_dir = false) {
         $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
-        $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] :"";
-
-        $baseUrl = $protocol . $host;
-        return $baseUrl . "/" . ltrim($path, "/");
+        $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : "";
+    
+        // যদি $project_dir = true হয়, তখন PROJECT_DIR যোগ করো
+        $project = $project_dir ? trim(PROJECT_DIR, '/') : '';
+    
+        // প্রটোকল, হোস্ট আর প্রজেক্ট ডির একত্রে করে
+        $baseUrl = rtrim($protocol . $host . '/' . $project, '/');
+    
+        return $baseUrl . '/' . ltrim($path, '/');
     }
-
+    
     // Base Path
     function base_path($path) {
-        $rootPath = dirname(__FILE__);
+        $rootPath = dirname(__DIR__) . DIRECTORY_SEPARATOR . PROJECT_DIR;
         return $rootPath . DIRECTORY_SEPARATOR . ltrim($path, DIRECTORY_SEPARATOR);
     }
 
@@ -30,5 +35,19 @@
         header('Location:'. base_url($path));
         exit;
     }
+
+    function isPostRequest() {
+        return $_SERVER['REQUEST_METHOD'] === 'POST';
+    }    
+
+    function getValue($field, $default = null) {
+        if (isPostRequest()) {
+            return isset($_POST[$field]) ? trim(htmlspecialchars($_POST[$field])) : $default;
+        }
+    
+        return $default;
+    }
+    
+
 
 ?>

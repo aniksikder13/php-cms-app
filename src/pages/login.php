@@ -1,6 +1,22 @@
 <?php 
+ob_start();
     include "../partials/header.php";
     include "../partials/nav.php";
+
+    if(isPostRequest()){
+        $email = getValue("email");
+        $password = getValue("password");
+
+        $user = new User();
+        $authentic_user = $user->getUser($email, $password);
+
+        if($authentic_user){
+            redirect("/pages/admin.php");
+        } else{
+            echo "email or password invalid";
+        }
+    };
+
 ?>
 
     <!-- Main Content -->
@@ -8,13 +24,14 @@
         <h2 class="text-center mb-4">Login</h2>
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="dashboard.html" method="post">
+                <form method="post">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address *</label>
                         <input
                             type="email"
                             class="form-control"
                             id="email"
+                            name="email"
                             required
                         >
                     </div>
@@ -24,6 +41,7 @@
                             type="password"
                             class="form-control"
                             id="password"
+                            name="password"
                             required
                         >
                     </div>
@@ -38,4 +56,5 @@
 
 <?php 
     include "../partials/footer.php";
+    ob_end_flush();
 ?>
