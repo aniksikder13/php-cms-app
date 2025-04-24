@@ -1,3 +1,6 @@
+<?php 
+    include __DIR__ . '/../../config/init.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +15,7 @@
     >
 
     <style>
-            /* Make sure the html and body take up the full height */
+    /* Make sure the html and body take up the full height */
     html, body {
         height: 100%;
         margin: 0;

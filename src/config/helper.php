@@ -14,11 +14,12 @@
     }
     
     // Base Path
-    function base_path($path) {
-        $rootPath = dirname(__DIR__) . DIRECTORY_SEPARATOR . PROJECT_DIR;
+    function base_path($path, $project_dir = false) {
+        $project = $project_dir ? trim(PROJECT_DIR, DIRECTORY_SEPARATOR) : '';
+        $rootPath = dirname(__DIR__) . DIRECTORY_SEPARATOR . $project;
         return $rootPath . DIRECTORY_SEPARATOR . ltrim($path, DIRECTORY_SEPARATOR);
     }
-
+    
     function upload_path($filename) {
         return base_path('uploads' . DIRECTORY_SEPARATOR . $filename);
     }
